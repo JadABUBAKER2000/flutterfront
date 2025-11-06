@@ -1,36 +1,38 @@
 import 'package:flutter/material.dart';
-import 'lang.dart';
-import 'home_page.dart';
-import 'sign_in_page.dart';
-import 'sign_up_page.dart';
+import 'package:provider/provider.dart';
+import 'providers/auth_provider.dart';
+import 'routes.dart';
+import 'screens/auth/sign_in.dart';
+import 'screens/products_placeholder.dart';
 
-void main() {
-  runApp(const UniBookApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  runApp(UniBookApp());
 }
 
 class UniBookApp extends StatelessWidget {
-  const UniBookApp({super.key});
-
   @override
   Widget build(BuildContext context) {
-    return ValueListenableBuilder<bool>(
-      valueListenable: isArabic,
-      builder: (context, arabic, _) {
-        return MaterialApp(
-          debugShowCheckedModeBanner: false,
-          title: 'UniBook',
-          theme: ThemeData(),
-          home: Directionality(
-            textDirection: arabic ? TextDirection.rtl : TextDirection.ltr,
-            child: const HomePage(),
+    return ChangeNotifierProvider(
+      create: (_) => AuthProvider()..init(),
+      child: MaterialApp(
+        title: 'unibook',
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          primarySwatch: Colors.orange,
+          scaffoldBackgroundColor: Colors.white,
+          appBarTheme: AppBarTheme(elevation: 0, color: Colors.white, iconTheme: IconThemeData(color: Colors.black)),
+          elevatedButtonTheme: ElevatedButtonThemeData(
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.orange,
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
+              minimumSize: Size(double.infinity, 48),
+            ),
           ),
-          routes: {
-            '/signin': (context) => const SignInPage(),
-            '/signup': (context) => const SignUpPage(),
-            '/home': (context) => const HomePage(),
-          },
-        );
-      },
+        ),
+        initialRoute: '/',
+        routes: appRoutes,
+      ),
     );
   }
 }
