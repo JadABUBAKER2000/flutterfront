@@ -4,10 +4,6 @@ This package contains the Flutter project files for the **Authentication & Profi
 (person 1) of the UniBook limited shop project. Data is stored locally using sqlite (sqflite).
 Passwords are hashed with SHA-256 prior to storing.
 
-## How to use
-1. Open this folder in your Flutter environment (Android Studio / VSCode).
-2. Run `flutter pub get`.
-3. Run on device/emulator: `flutter run`.
 
 ## Notes
 - Language: bilingual labels included (English / Arabic).
